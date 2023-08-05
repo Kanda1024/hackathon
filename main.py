@@ -62,7 +62,7 @@ def artist_searcher(artist_name):
     options = Options()
     options.add_argument('--headless')
 
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
     driver.get('https://www.uta-net.com/')
 
     #歌ネットでアーティスト検索
