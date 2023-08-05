@@ -3,6 +3,7 @@ import time
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
+from evaluate import *
 
 #webサイトを取得し、テキスト形式で出力
 def load(url):
@@ -67,6 +68,7 @@ def get_info(url):
                 song_url.append(base_url + a.get('href'))
 
     #曲の情報の取得
+    two_song = []
     for i, page in enumerate(song_url):
         print('{}曲目:{}'.format(i + 1, page))
         html = load(page)
@@ -106,13 +108,25 @@ def get_info(url):
             if r'id="kashi_area"' in id_:
                 simple_row = parse_lyric(id_)
                 #これが歌詞部分
-                print(simple_row)
+                # print(simple_row)
+                if(len(two_song) < 2):
+                    two_song.append(simple_row)
+                    print(len(two_song))
+                # # 全て文字化けしてtxt-fileに出力される
+                txt_file = "test.txt"
+                with open (txt_file, 'a') as f:
+                    f.write(str(i+1) + "曲目")
+                    f.write(simple_row)
                 song_info.append(simple_row)
                 songs_info.append(song_info)
 
                 #1秒待機(サーバの負荷を軽減)
                 time.sleep(1)
                 break
+        
+    # 得点出力テスト
+    theme = "悲しい"
+    evaluate(two_song[0], two_song[1], theme)
 
     return songs_info
 
@@ -121,9 +135,14 @@ def create_df(file_name, url):
     #df = pd.DataFrame('Song_Title', 'Artist', 'Lyricist', 'Composer', 'Lyric')
     df = pd.DataFrame(get_info(url))
     df = df.rename(columns={0:'Song_Title', 1:'Artist', 2:'Lyricist', 3:'Composer', 4:'Lyric'})
+    # print(df['Lyric'].iat[13])
+    # # # 全て文字化けしてtxt-fileに出力される
+    # txt_file = "test2.txt"
+    # with open (txt_file, 'a') as f:
+    #     f.write(df['Lyric'].iat[13])
     # CSVファイル出力
-    #csv = df.to_csv("csv/{}.csv".format(file_name))
-    return csv
+    # csv = df.to_csv("csv/{}.csv".format(file_name))
+    # return csv
 
 
 file_name = 'sample'
