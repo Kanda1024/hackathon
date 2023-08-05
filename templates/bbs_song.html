@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>希望の曲を選択してください</h1>
+    <form action="/liric" method="post">
+        <select name="last_song_name">
+            {% for song in songs %}
+                <option value="{{ song }}">{{ song }}</option>
+            {% endfor %}
+        </select>
+        <p></p>
+        <button type="submit">決定</button>
+    </form>
+
+{% endblock %}

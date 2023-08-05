@@ -114,27 +114,50 @@ def artist_searcher(artist_name):
 
 
 
+def song_searcher(artist_url):
+    html = load(artist_url)
+    #曲ごとのurlを格納
+    song_url = []
+    #歌を格納
+    song_info = []
 
+    #曲のurlを取得
+    #tdのurlを格納
+    for td in get_tags(html, 'td'):
+        #a要素の取得
+        for a in get_tags(td, 'a'):
+            #href属性にsongを含むか否か
+            if 'song' in a.get ('href'):
+                #urlを配列に追加
+                song_url.append(base_url + a.get('href'))
 
+    #曲の情報の取得
+    for i, page in enumerate(song_url):
+        #print('{}曲目:{}'.format(i + 1, page))
+        html = load(page)
+        song_info = []
 
+        #Song
+        for tag in get_tag(html, 'h2'):
+            #id検索を行うため、一度strにキャスト
+            tag = str(tag)
+            simple_row = parse(tag)
+            song_info.append(simple_row)                
 
+        #Lyric
+        for id_ in get_id(html, '#kashi_area'):
+            id_ = str(id_)
+            if r'id="kashi_area"' in id_:
+                simple_row = parse_lyric(id_)
+                #これが歌詞部分
+                song_info.append(simple_row)
 
+                #1秒待機(サーバの負荷を軽減)
+                time.sleep(1)
+                break
 
+    song_dist = {}
+    for i in range(len(song_name)):
+        song_dist[song_name[i]] = song_url[i]
 
-
-
-
-#artist_searcher("YOASOBI")
-
-"""
-html = requests.get(load_url)
-soup = BeautifulSoup(html.content, "html.parser")
-
-# HTML全体を表示する
-#print(soup)
-
-elems = soup.select('tr')
-
-for elem in elems:
-    print(elem.get('href'))
-"""
+    return song_dist
