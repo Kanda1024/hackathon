@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
-from namechanger import changer
-from a import artist_searcher
+from main import artist_searcher
 import codecs
 app = Flask(__name__)
 
