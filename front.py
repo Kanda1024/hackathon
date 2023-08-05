@@ -12,8 +12,8 @@ def bbs():
 @app.route("/arti", methods=["POST"])
 def arti():
     artist = request.form["artist_name"]
-    song = request.form["song_name"]
-    message = "アーティスト名：" + artist + "\n 曲名："+song
+    #song = request.form["song_name"]
+    #message = "アーティスト名：" + artist + "\n 曲名："+song
 
     #name = changer(name)
 

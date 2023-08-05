@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>希望の曲を選択してください</h1>
-    <form action="/liric" method="post">
-        <select name="last_song_name">
-            {% for song, url in songs.items() %}
+    <div>
+        <h1>希望の曲を選択してください</h1>
+        <form action="/liric" method="post">
+            <select name="last_song_name">
+                {% for song, url in songs.items() %}
                 <option value="{{ url }}">{{ song }}</option>
-            {% endfor %}
-        </select>
-        <p></p>
-        <button type="submit">決定</button>
-    </form>
+                {% endfor %}
+            </select>
+            <p></p>
+            <button type="submit" class="button">決定</button>
+        </form>
+    </div>
 
 {% endblock %}
