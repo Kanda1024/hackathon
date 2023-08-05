@@ -130,17 +130,18 @@ def song_searcher(artist_url):
             if 'song' in a.get ('href'):
                 #urlを配列に追加
                 song_url.append(base_url + a.get('href'))
-            
-            #Song
-            for tag in a:
-                #id検索を行うため、一度strにキャスト
-                tag = str(tag)
-                simple_row = parse(tag)
-                #print(simple_row)
-                if ("歌詞" not in simple_row) and (len(simple_row)>0):
-                    song_name.append(simple_row) 
-        
 
+
+    #曲の情報の取得
+    for i, page in enumerate(song_url):
+        html = load(page)
+        #Song
+        for tag in get_tag(html, 'h2'):
+            #id検索を行うため、一度strにキャスト
+            tag = str(tag)
+            simple_row = parse(tag)
+            song_name.append(simple_row)   
+        
 
 
     song_dist = {}
@@ -150,18 +151,16 @@ def song_searcher(artist_url):
     return song_dist
 
 
-def lilic_seacher(song_url):
+def liric_seacher(song_url):
     #曲の情報の取得
     #print('{}曲目:{}'.format(i + 1, page))
-    html = load(song_url)
-    song_info = []             
+    html = load(song_url)          
 
     #Lyric
     id_ = str(get_id(html, '#kashi_area'))
     if r'id="kashi_area"' in id_:
-        simple_row = parse_lyric(id_)
-        #これが歌詞部分
-        song_info.append(simple_row)
+        #歌詞部分
+        song_info = parse_lyric(id_)
         #1秒待機(サーバの負荷を軽減)
         time.sleep(1)
     
