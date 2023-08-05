@@ -4,3 +4,5 @@ requests
 chromedriver_binary-auto
 selenium
 beautifulsoup4
+transformers
+torch
