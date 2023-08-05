@@ -54,7 +54,7 @@ def parse_lyric(html):
 
 
 
-
+#歌手の名前から歌手のurlがまとまった辞書を返す関数
 def artist_searcher(artist_name):
 
     driver = webdriver.Chrome()
@@ -103,9 +103,6 @@ def artist_searcher(artist_name):
                 if ("歌詞" not in simple_row) and (len(simple_row)>0):
                     song_name.append(simple_row) 
 
-    print(song_url)
-    print(song_name)
-
     singer_dist = {}
     for i in range(len(song_name)):
         singer_dist[song_name[i]] = song_url[i]
@@ -114,14 +111,17 @@ def artist_searcher(artist_name):
 
 
 
+#歌手のurlから、曲一覧と曲に対応したurlをまとめた辞書を返す
 def song_searcher(artist_url):
     html = load(artist_url)
     #曲ごとのurlを格納
     song_url = []
     #歌を格納
-    song_info = []
+    song_name = []
+
 
     #曲のurlを取得
+    base_url = 'https://www.uta-net.com/'
     #tdのurlを格納
     for td in get_tags(html, 'td'):
         #a要素の取得
@@ -130,34 +130,39 @@ def song_searcher(artist_url):
             if 'song' in a.get ('href'):
                 #urlを配列に追加
                 song_url.append(base_url + a.get('href'))
+            
+            #Song
+            for tag in a:
+                #id検索を行うため、一度strにキャスト
+                tag = str(tag)
+                simple_row = parse(tag)
+                #print(simple_row)
+                if ("歌詞" not in simple_row) and (len(simple_row)>0):
+                    song_name.append(simple_row) 
+        
 
-    #曲の情報の取得
-    for i, page in enumerate(song_url):
-        #print('{}曲目:{}'.format(i + 1, page))
-        html = load(page)
-        song_info = []
 
-        #Song
-        for tag in get_tag(html, 'h2'):
-            #id検索を行うため、一度strにキャスト
-            tag = str(tag)
-            simple_row = parse(tag)
-            song_info.append(simple_row)                
-
-        #Lyric
-        for id_ in get_id(html, '#kashi_area'):
-            id_ = str(id_)
-            if r'id="kashi_area"' in id_:
-                simple_row = parse_lyric(id_)
-                #これが歌詞部分
-                song_info.append(simple_row)
-
-                #1秒待機(サーバの負荷を軽減)
-                time.sleep(1)
-                break
 
     song_dist = {}
     for i in range(len(song_name)):
         song_dist[song_name[i]] = song_url[i]
 
     return song_dist
+
+
+def lilic_seacher(song_url):
+    #曲の情報の取得
+    #print('{}曲目:{}'.format(i + 1, page))
+    html = load(song_url)
+    song_info = []             
+
+    #Lyric
+    id_ = str(get_id(html, '#kashi_area'))
+    if r'id="kashi_area"' in id_:
+        simple_row = parse_lyric(id_)
+        #これが歌詞部分
+        song_info.append(simple_row)
+        #1秒待機(サーバの負荷を軽減)
+        time.sleep(1)
+    
+    return song_info

@@ -4,8 +4,8 @@
 
     <form action="/songname" method="post">
         <select name="last_artist_name">
-            {% for singer in singers %}
-                <option value="{{ singer }}">{{ singer }}</option>
+            {% for singer, url in singers.items() %}
+                <option value="{{ url }}">{{ singer }}</option>
             {% endfor %}
         </select>
         <p></p>

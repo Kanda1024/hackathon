@@ -3,8 +3,8 @@
     <h1>希望の曲を選択してください</h1>
     <form action="/liric" method="post">
         <select name="last_song_name">
-            {% for song in songs %}
-                <option value="{{ song }}">{{ song }}</option>
+            {% for song, url in songs.items() %}
+                <option value="{{ url }}">{{ song }}</option>
             {% endfor %}
         </select>
         <p></p>

@@ -1,10 +1,7 @@
 from flask import Flask, request, render_template
-from a import artist_searcher
+from main import artist_searcher, song_searcher, lilic_seacher
 import codecs
 app = Flask(__name__)
-
-singers={}
-songs={}
 
 
 @app.route("/")
@@ -32,31 +29,19 @@ def arti():
 
 @app.route("/songname", methods=["POST"])
 def songname():
-    artist = request.form["last_artist_name"]
-    #name = changer(name)
-    print(artist)
-    print(singers)
-    artist_url = singers[artist]
+    artist_url = request.form["last_artist_name"]
+    song = song_searcher(artist_url)
 
-    print(artist_url)
-    songs = song_searcher(artist_url)
-
-
-
-
-    return render_template("bbs_song.html", song = songs)
-
-
-
+    return render_template("bbs_song.html", song = song)
 
 
 @app.route("/liric", methods=["POST"])
 def liric():
-    song = request.form["last_song_name"]
+    song_url = request.form["last_song_name"]
 
-    Liric = songs[song]
+    Lilic = lilic_seacher(song_url)
 
-    #name = changer(name)
+    print(Lilic)
 
     return render_template("bbs_final.html", Lilic = Lilic)
 
