@@ -1,0 +1,6 @@
+flask
+bs4
+requests
+chromedriver_binary-auto
+selenium
+beautifulsoup4

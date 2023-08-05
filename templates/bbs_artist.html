@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>書き込みました</h1>
+    <p>{{ message }}</p>
+    <p>{{ artist }} {{ song }}</p>
+
+    <form action="/songname" method="get">
+        <select name="last_artist_name">
+            {% for singer in singers %}
+                <option value="{{ singer }}">{{ singer }}</option>
+            {% endfor %}
+        </select>
+        <p></p>
+        <button type="submit">決定</button>
+    </form>
+
+{% endblock %}
