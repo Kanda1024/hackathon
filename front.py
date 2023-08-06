@@ -9,6 +9,11 @@ app = Flask(__name__)
 
 
 @app.route("/")
+def start():
+    return render_template("bbs_start.html")
+
+
+@app.route("/theme", methods=["POST", "GET"])
 def bbs():
     theme = make_theme()
     file = codecs.open("theme.txt", "w", "utf-8")
@@ -60,7 +65,7 @@ def liric():
 
 
 
-@app.route("/2")
+@app.route("/theme2", methods=["POST", "GET"])
 def bbs2():
     file = codecs.open("theme.txt", "r", "utf-8")
     theme = file.readline()
