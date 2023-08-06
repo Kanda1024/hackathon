@@ -21,6 +21,6 @@ def make_theme():
     # print(theme_list[random_index])
     return theme_list[random_index]
     
-print(make_theme())
+#print(make_theme())
 
 

@@ -2,13 +2,17 @@ from flask import Flask, request, render_template
 from main import artist_searcher, song_searcher, liric_seacher
 import codecs
 from evaluate import evaluate
+from theme_out import make_theme
 app = Flask(__name__)
 
 
 @app.route("/")
 def bbs():
-    message = "Hello world"
-    return render_template("bbs.html", message = message)
+    theme = make_theme()
+    file = codecs.open("theme.txt", "w", "utf-8")
+    file.write(now_theme)
+    file.close()
+    return render_template("bbs.html", theme = theme)
 
 @app.route("/arti", methods=["POST"])
 def arti():
@@ -56,8 +60,10 @@ def liric():
 
 @app.route("/2")
 def bbs2():
-    message = "Hello world"
-    return render_template("bbs2.html", message = message)
+    file = codecs.open("theme.txt", "r", "utf-8")
+    theme = file.readline()
+    file.close()
+    return render_template("bbs2.html", theme = theme)
 
 @app.route("/arti2", methods=["POST"])
 def arti2():
@@ -110,10 +116,14 @@ def judge():
     Liric2 = file.readline()
     file.close()
 
+    file = codecs.open("theme.txt", "r", "utf-8")
+    theme = file.readline()
+    file.close()
+
     #print(Liric1)
     #print(Liric2)
 
-    point1, point2 = evaluate(Liric1, Liric2, "かっこいい")
+    point1, point2 = evaluate(Liric1, Liric2, theme)
     #point1, point2 =[50, 100]
 
     return render_template("bbs_judge.html", point1 = point1, point2 = point2)
