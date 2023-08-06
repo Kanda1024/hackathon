@@ -3,6 +3,8 @@ from main import artist_searcher, song_searcher, liric_seacher
 import codecs
 from evaluate import evaluate
 from theme_out import make_theme
+import math
+
 app = Flask(__name__)
 
 
@@ -117,7 +119,7 @@ def judge():
     point1, point2 = evaluate(Liric1, Liric2, theme)
     #point1, point2 =[50, 100]
 
-    return render_template("bbs_judge.html", point1 = point1, point2 = point2)
+    return render_template("bbs_judge.html", point1 = math.ceil(point1), point2 = math.ceil(point2))
 
 
 if __name__ == '__main__':

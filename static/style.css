@@ -128,3 +128,12 @@ h1 span:after {
 .text_title {
     font-size : 15pt;
 }
+
+/*歌詞*/
+.lyric {
+    margin:20px; 
+    padding:20px 0;
+    border:5px solid rgb(212, 129, 35);
+    background-color:#FFF6DC;
+    line-break: strict;
+}
