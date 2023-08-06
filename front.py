@@ -10,7 +10,7 @@ app = Flask(__name__)
 def bbs():
     theme = make_theme()
     file = codecs.open("theme.txt", "w", "utf-8")
-    file.write(now_theme)
+    file.write(theme)
     file.close()
     return render_template("bbs.html", theme = theme)
 
@@ -68,18 +68,9 @@ def bbs2():
 @app.route("/arti2", methods=["POST"])
 def arti2():
     artist = request.form["artist_name"]
-    #song = request.form["song_name"]
-    #message = "Player2\n アーティスト名：" + artist + "\n 曲名："+song
-
-    #name = changer(name)
 
     singers = artist_searcher(artist)
 
-    """
-    file = codecs.open("articles.txt", "a", "utf-8")
-    file.write(singer_urls + "," +  + "\n")
-    file.close()
-    """
 
     return render_template("bbs_artist2.html", singers = singers)
 

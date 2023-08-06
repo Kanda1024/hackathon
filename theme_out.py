@@ -4,7 +4,7 @@ import time
 
 def make_theme():
     # お題のリストを読み込み
-    data_file = "theme.txt"
+    data_file = "theme_list.txt"
     f = open(data_file, 'r')
     theme_list = []
     for line in open(data_file, 'r', encoding="utf-8"):
