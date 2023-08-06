@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <h1>点数 (Player1 vs Player2)</h1>
+        <p>{{ point1 }} {{ point2 }}</p>
+        <form action="/" method="get">
+            <button type="submit">終わる</button>
+        </form>
+    </div>
+{% endblock %}

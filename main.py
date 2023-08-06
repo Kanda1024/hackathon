@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 import chromedriver_binary
 from bs4 import BeautifulSoup
 import requests
+from selenium.webdriver.chrome.options import Options
 
 
 #webサイトを取得し、テキスト形式で出力
