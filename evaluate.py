@@ -67,6 +67,12 @@ def evaluate(lyrics1, lyrics2 ,theme):
     # print(type(lyrics1_point))  # <class 'numpy.float32'>
     # print(lyrics1_point)        # 0.8112952
 
+    if(theme in lyrics1):
+        lyrics1_point = 0
+    if(theme in lyrics2):
+        lyrics2_point = 0
+
+
     # 結果の出力
     print("１曲目の歌詞")
     print(lyrics1)

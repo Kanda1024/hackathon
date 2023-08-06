@@ -119,7 +119,12 @@ def judge():
     point1, point2 = evaluate(Liric1, Liric2, theme)
     #point1, point2 =[50, 100]
 
-    return render_template("bbs_judge.html", point1 = math.ceil(point1), point2 = math.ceil(point2))
+    if(point1 > point2):
+        winner=1
+    else:
+        winner=2
+
+    return render_template("bbs_judge.html", point1 = math.ceil(point1), point2 = math.ceil(point2), winner = winner)
 
 
 if __name__ == '__main__':
