@@ -77,3 +77,9 @@ def evaluate(lyrics1, lyrics2 ,theme):
     print("１曲目の点数：", lyrics1_point)
     print("２曲目の点数：", lyrics2_point)
 
+
+    #追記--------------------------------------
+    return lyrics1_point, lyrics2_point
+
+    #-----------------------------------------
+

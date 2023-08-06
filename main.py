@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 import chromedriver_binary
 from bs4 import BeautifulSoup
 import requests
+from selenium.webdriver.chrome.options import Options
 
 
 #webサイトを取得し、テキスト形式で出力
@@ -56,8 +57,10 @@ def parse_lyric(html):
 
 #歌手の名前から歌手のurlがまとまった辞書を返す関数
 def artist_searcher(artist_name):
-
-    driver = webdriver.Chrome()
+    #ヘッドレスモードでブラウザを起動
+    options = Options()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
     driver.get('https://www.uta-net.com/')
 
     #歌ネットでアーティスト検索
